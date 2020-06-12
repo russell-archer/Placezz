@@ -12,9 +12,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        NetworkHelper.shared.getAllPlaces { result in
+            switch result {
+            case .failure(let error):
+                print("Error: \(error)")
+                break
+            case .success(let places):
+                places.forEach { place in
+                    print("id: \(place.id!), title: \(place.title)")
+                }
+                break
+            }
+        }
     }
-
-
 }
 
